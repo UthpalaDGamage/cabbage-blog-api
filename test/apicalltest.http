@@ -1,0 +1,38 @@
+GET http://localhost:3000/comment HTTP/1.1
+
+###
+
+GET http://localhost:3000/user HTTP/1.1
+
+###
+
+GET http://localhost:3000/user/60e59022c8d46a8c7ff5a596 HTTP/1.1
+
+###
+
+POST http://localhost:3000/user HTTP/1.1
+content-type: application/json
+
+{
+    "name":"Harry"
+}
+
+###
+
+PATCH  http://localhost:3000/user/60e59022c8d46a8c7ff5a596 HTTP/1.1
+content-type: application/json
+
+{
+    "name":"Harry Potter"
+}
+
+###
+
+DELETE http://localhost:3000/user/60e59022c8d46a8c7ff5a596 HTTP/1.1
+
+
+###
+
+GET http://localhost:3000/post/60e74462f0921b6d61d71936 HTTP/1.1
+
+###
