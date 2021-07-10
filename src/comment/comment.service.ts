@@ -39,7 +39,6 @@ export class CommentService {
 
   async findAllCommentsByPost(postId: string) {
     const post = await this.postModel.findById(postId).exec();
-    console.log(post);
     return await this.model.find({ post: post }).exec();
   }
 }

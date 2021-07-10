@@ -38,7 +38,7 @@ export class CommentController {
     return await this.commentService.update(id, updateCommentDto);
   }
 
-  @Delete([':id', ':authorId'])
+  @Delete(':id/author/:authorId')
   async remove(@Param('id') id: string, @Param('authorId') authorId: string) {
     return await this.commentService.remove(id, authorId);
   }

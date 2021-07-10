@@ -11,6 +11,4 @@ export class CreateCommentDto {
     @IsNotEmpty()
     content: string;
     
-    @IsNotEmpty()
-    createdTime: Date;
 }

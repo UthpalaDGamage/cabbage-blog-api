@@ -8,8 +8,4 @@ export class CreateUserDto {
   @IsNotEmpty()
   @IsInt()
   numberOfPosts: number;
-
-  @IsNotEmpty()
-  @IsDate()
-  createdTime: Date;
 }

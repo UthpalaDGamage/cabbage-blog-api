@@ -1,7 +1,4 @@
-GET http://localhost:3000/comment HTTP/1.1
-
-###
-
+######## User Controller
 GET http://localhost:3000/user HTTP/1.1
 
 ###
@@ -31,8 +28,84 @@ content-type: application/json
 DELETE http://localhost:3000/user/60e59022c8d46a8c7ff5a596 HTTP/1.1
 
 
-###
+######## Post Controller
 
+### findAll
+GET http://localhost:3000/post HTTP/1.1
+
+
+
+### findOne
 GET http://localhost:3000/post/60e74462f0921b6d61d71936 HTTP/1.1
 
-###
+
+
+### findAllforUser
+GET http://localhost:3000/post/author/60e59022c8d46a8c7ff5a596 HTTP/1.1
+
+
+
+### create
+POST http://localhost:3000/post HTTP/1.1
+content-type: application/json
+
+{
+    "author":"60e55e81eef8ac6e190ba952",
+    "content":"My first Post",
+    "title":"Post001"
+}
+
+
+
+### update
+PATCH http://localhost:3000/post/60e74462f0921b6d61d71936 HTTP/1.1
+content-type: application/json
+
+{
+    "author":"60e55e81eef8ac6e190ba952",
+    "content":"My first Post",
+    "title":"Post001"
+}
+
+
+
+### remove
+DELETE http://localhost:3000/post/60e74462f0921b6d61d71936/author/60e59022c8d46a8c7ff5a596 HTTP/1.1
+
+
+
+
+######## Comment Controller
+
+### findAll
+GET http://localhost:3000/comment HTTP/1.1
+
+### findOne
+GET http://localhost:3000/comment/60e588efc8d46a8c7ff5a589 HTTP/1.1
+
+### findAllCommentsByPost
+GET http://localhost:3000/comment/post/60e56858e9b47977ff626666 HTTP/1.1
+
+
+### create
+POST http://localhost:3000/comment HTTP/1.1
+content-type: application/json
+
+{
+    "author": "60e55e81eef8ac6e190ba952",
+    "post": "60e56858e9b47977ff626666",
+    "content": "Comment001",
+}
+
+### update
+PATCH http://localhost:3000/comment/60e588efc8d46a8c7ff5a589 HTTP/1.1
+content-type: application/json
+
+{
+    "author": "60e55e81eef8ac6e190ba952",
+    "post": "60e56858e9b47977ff626666",
+    "content": "Comment001-modified",
+}
+
+### remove
+DELETE http://localhost:3000/comment/60e588efc8d46a8c7ff5a589/author/60e55e81eef8ac6e190ba952 HTTP/1.1
