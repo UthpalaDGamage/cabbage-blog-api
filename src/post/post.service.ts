@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -33,20 +33,40 @@ export class PostService {
   }
 
   async findOne(id: string): Promise<Post> {
-    return await this.model.findById(id).exec();
+    return await this.model.findById(id).populate('author').populate('comments').exec().then(res => {
+      if(!res){
+        throw new NotFoundException(`Post not found for id:#${id}`);
+      }
+    }).catch(err =>{
+      return err;
+    });;
   }
 
   async findOneWithAuthor(id: string): Promise<Post> {
-    return await this.model.findById(id).populate('author').exec();
+    return await this.model.findById(id).populate('author').exec().then(res => {
+      if(!res){
+        throw new NotFoundException(`Post not found for id:#${id}`);
+      }
+    }).catch(err =>{
+      return err;
+    });;
   }
 
   async update(id: string, updatePostDto: UpdatePostDto) {
     return await this.model
       .updateOne(
-        { _id: updatePostDto.id, author: updatePostDto.author },
+        { _id: id, author: updatePostDto.author },
         updatePostDto,
       )
-      .exec();
+      .exec().then(res => {
+        if(res.n === 1 && res.nModified === 0){
+          return {message: 'nothing to change'};
+        }else if(res.nModified > 0){
+          return {message: 'successfully updated'};
+        }else{
+          throw new NotFoundException(`Post not found for id:#${id} and author :#${updatePostDto.author}`);
+        }
+      });
   }
 
   async remove(id: string, userId: string) {
@@ -55,14 +75,20 @@ export class PostService {
       .deleteOne({ _id: id, author: author })
       .exec()
       .then(async (res) => {
-        if (res && author.numberOfPosts > 0) {
-          await this.userModel
-            .updateOne({ _id: author }, { $inc: { numberOfPosts: -1 } })
-            .exec();
+        if(res.deletedCount === 0){
+          throw new NotFoundException(`Post not found for id:#${id} and author :#${author}`);
+        }else{
+          if (res && author.numberOfPosts > 0) {
+            await this.userModel
+              .updateOne({ _id: author }, { $inc: { numberOfPosts: -1 } })
+              .exec();
+          }
+          return {message: 'Post successfully deleted'};
         }
+       
       })
       .catch((err) => {
-        console.log(err);
+        return err;
       });
   }
 

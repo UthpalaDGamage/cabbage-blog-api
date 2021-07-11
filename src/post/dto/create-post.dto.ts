@@ -1,4 +1,4 @@
-import { IsNotEmpty, Length, ValidateNested } from 'class-validator';
+import { IsMongoId, IsNotEmpty, Length, ValidateNested } from 'class-validator';
 import { User } from 'src/user/schemas/user.schema';
 
 export class CreatePostDto {
@@ -11,6 +11,6 @@ export class CreatePostDto {
   content: string;
   
   @IsNotEmpty()
-  @ValidateNested()
+  @IsMongoId()
   author: User;
 }

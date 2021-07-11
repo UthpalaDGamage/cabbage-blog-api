@@ -1,5 +1,5 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -22,7 +22,13 @@ export class UserService {
   }
 
   async findOne(id: string): Promise<User> {
-    return await this.userModel.findById(id).exec();
+    return await this.userModel.findById(id).exec().then(res => {
+      if(!res){
+        throw new NotFoundException(`User not found for id:#${id}`);
+      }
+    }).catch(err =>{
+      return err;
+    });;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {

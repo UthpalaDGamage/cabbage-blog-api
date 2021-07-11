@@ -1,14 +1,18 @@
 import { User } from "src/user/schemas/user.schema";
-import { IsNotEmpty } from 'class-validator';
+import { Post } from "src/post/schemas/post.schema";
+import { IsMongoId, IsNotEmpty } from 'class-validator';
 
 export class CreateCommentDto {
     @IsNotEmpty()
+    @IsMongoId()
     author: User;
 
     @IsNotEmpty()
-    title: string;
+    @IsMongoId()
+    post: Post;
 
     @IsNotEmpty()
     content: string;
     
 }
+

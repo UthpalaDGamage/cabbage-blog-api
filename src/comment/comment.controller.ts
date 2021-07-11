@@ -8,6 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { CommentService } from './comment.service';
+import { IsDeleteCommentParams, IsGetCommentParams, IsPatchCommentParams } from './comment.validator';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 
@@ -26,21 +27,21 @@ export class CommentController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.commentService.findOne(id);
+  async findOne(@Param() params: IsGetCommentParams) {
+    return await this.commentService.findOne(params.id);
   }
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param() params: IsPatchCommentParams,
     @Body() updateCommentDto: UpdateCommentDto,
   ) {
-    return await this.commentService.update(id, updateCommentDto);
+    return await this.commentService.update(params.id, updateCommentDto);
   }
 
   @Delete(':id/author/:authorId')
-  async remove(@Param('id') id: string, @Param('authorId') authorId: string) {
-    return await this.commentService.remove(id, authorId);
+  async remove(@Param() params:IsDeleteCommentParams) {
+    return await this.commentService.remove(params.id, params.authorId);
   }
 
   @Get('/post/:postId')

@@ -1,10 +1,10 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsNotEmpty } from 'class-validator';
+import { IsMongoId, IsNotEmpty } from 'class-validator';
+import { User } from 'src/user/schemas/user.schema';
 import { CreateCommentDto } from './create-comment.dto';
 
 export class UpdateCommentDto extends PartialType(CreateCommentDto) {
   @IsNotEmpty()
-  id: string;
-  @IsNotEmpty()
-  lastUpdatedTime: Date;
+  @IsMongoId()
+  author: User;
 }

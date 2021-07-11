@@ -1,9 +1,14 @@
 ######## User Controller
+
+#
 GET http://localhost:3000/user HTTP/1.1
 
 ###
 
-GET http://localhost:3000/user/60e59022c8d46a8c7ff5a596 HTTP/1.1
+
+## 500 on invalid id?
+
+GET http://localhost:3000/user/60eatttt97d5eca99f3fc156381a HTTP/1.1
 
 ###
 
@@ -11,21 +16,22 @@ POST http://localhost:3000/user HTTP/1.1
 content-type: application/json
 
 {
-    "name":"Harry"
+    "name":"Was"
 }
 
 ###
 
-PATCH  http://localhost:3000/user/60e59022c8d46a8c7ff5a596 HTTP/1.1
+## after update old object is returning
+PATCH  http://localhost:3000/user/60ea97d5eca99f3fc156381a HTTP/1.1
 content-type: application/json
 
 {
-    "name":"Harry Potter"
+    "name":"Wastt"
 }
 
 ###
 
-DELETE http://localhost:3000/user/60e59022c8d46a8c7ff5a596 HTTP/1.1
+DELETE http://localhost:3000/user/60ea97d5eca99f3fc156381a HTTP/1.1
 
 
 ######## Post Controller
@@ -36,12 +42,12 @@ GET http://localhost:3000/post HTTP/1.1
 
 
 ### findOne
-GET http://localhost:3000/post/60e74462f0921b6d61d71936 HTTP/1.1
+GET http://localhost:3000/post/60ea9821eca99f3fc156381f HTTP/1.1
 
 
 
 ### findAllforUser
-GET http://localhost:3000/post/author/60e59022c8d46a8c7ff5a596 HTTP/1.1
+GET http://localhost:3000/post/author/60ea97d5eca99f3fc156381a HTTP/1.1
 
 
 
@@ -50,21 +56,22 @@ POST http://localhost:3000/post HTTP/1.1
 content-type: application/json
 
 {
-    "author":"60e55e81eef8ac6e190ba952",
+    "author":"60ea97d5eca99f3fc156381a",
     "content":"My first Post",
-    "title":"Post001"
+    "title":"Post was"
 }
 
 
 
 ### update
-PATCH http://localhost:3000/post/60e74462f0921b6d61d71936 HTTP/1.1
+##???? content and title does not update
+PATCH http://localhost:3000/post/60ea9821eca99f3fc156381f HTTP/1.1
 content-type: application/json
 
 {
     "author":"60e55e81eef8ac6e190ba952",
-    "content":"My first Post",
-    "title":"Post001"
+    "content":"My edited Post",
+    "title":"Post021"
 }
 
 
@@ -81,31 +88,32 @@ DELETE http://localhost:3000/post/60e74462f0921b6d61d71936/author/60e59022c8d46a
 GET http://localhost:3000/comment HTTP/1.1
 
 ### findOne
-GET http://localhost:3000/comment/60e588efc8d46a8c7ff5a589 HTTP/1.1
+GET http://localhost:3000/comment/60ea9afeeca99f3fc1563834 HTTP/1.1
 
 ### findAllCommentsByPost
 GET http://localhost:3000/comment/post/60e56858e9b47977ff626666 HTTP/1.1
 
 
 ### create
+### update post??
 POST http://localhost:3000/comment HTTP/1.1
 content-type: application/json
 
 {
-    "author": "60e55e81eef8ac6e190ba952",
-    "post": "60e56858e9b47977ff626666",
-    "content": "Comment001",
+    "author": "60e54abd9e31df580dc306c1",
+    "post": "60ea9821eca99f3fc156381f",
+    "content": "Comment tttt"
 }
 
 ### update
-PATCH http://localhost:3000/comment/60e588efc8d46a8c7ff5a589 HTTP/1.1
+PATCH http://localhost:3000/comment/60ea9afeeca99f3fc1563834 HTTP/1.1
 content-type: application/json
 
 {
     "author": "60e55e81eef8ac6e190ba952",
-    "post": "60e56858e9b47977ff626666",
-    "content": "Comment001-modified",
+    "post": "60ea9821eca99f3fc156381f",
+    "content": "Comment001-modified"
 }
 
 ### remove
-DELETE http://localhost:3000/comment/60e588efc8d46a8c7ff5a589/author/60e55e81eef8ac6e190ba952 HTTP/1.1
+DELETE http://localhost:3000/comment/60ea9afeeca99f3fc1563834/author/60e54abd9e31df580dc306c1 HTTP/1.1

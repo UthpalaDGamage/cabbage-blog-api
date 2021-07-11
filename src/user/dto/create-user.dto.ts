@@ -5,7 +5,5 @@ export class CreateUserDto {
   @Length(5, 20)
   name: string;
 
-  @IsNotEmpty()
-  @IsInt()
   numberOfPosts: number;
 }

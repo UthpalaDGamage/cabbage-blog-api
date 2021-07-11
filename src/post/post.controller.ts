@@ -10,6 +10,7 @@ import {
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { IsDeletePostParams, IsGetPostParams, IsPatchPostParams, IsAuthorParams } from './post.validator';
 
 @Controller('post')
 export class PostController {
@@ -21,13 +22,13 @@ export class PostController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return await this.postService.update(id, updatePostDto);
+  async update(@Param() params: IsPatchPostParams, @Body() updatePostDto: UpdatePostDto) {
+    return await this.postService.update(params.id, updatePostDto);
   }
 
   @Delete(':id/author/:userId')
-  async remove(@Param('id') id: string, @Param('userId') userId: string) {
-    return await this.postService.remove(id, userId);
+  async remove(@Param() params: IsDeletePostParams) {
+    return await this.postService.remove(params.id, params.userId);
   }
 
   @Get()
@@ -36,12 +37,12 @@ export class PostController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return await this.postService.findOne(id);
+  async findOne(@Param() params: IsGetPostParams) {
+    return await this.postService.findOne(params.id);
   }
 
   @Get('/author/:userId')
-  async findAllforUser(@Param('userId') userId: string) {
-    return await this.postService.findAllForUser(userId);
+  async findAllforUser(@Param() params: IsAuthorParams) {
+    return await this.postService.findAllForUser(params.userId);
   }
 }
