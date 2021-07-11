@@ -30,7 +30,7 @@ export class CommentController {
   async findOne(@Param() params: IsGetCommentParams) {
     return await this.commentService.findOne(params.id);
   }
-
+// Since authentication not implemented userId is sent as author in updateCommentDto
   @Patch(':id')
   async update(
     @Param() params: IsPatchCommentParams,
@@ -38,7 +38,7 @@ export class CommentController {
   ) {
     return await this.commentService.update(params.id, updateCommentDto);
   }
-
+// Since authentication not implemented userId is sent as :authorId
   @Delete(':id/author/:authorId')
   async remove(@Param() params:IsDeleteCommentParams) {
     return await this.commentService.remove(params.id, params.authorId);

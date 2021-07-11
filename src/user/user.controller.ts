@@ -22,7 +22,7 @@ export class UserController {
   async findAll() {
     return await this.userService.findAll();
   }
-
+// Since authentication not implemented userId is sent as author in updateuserDto
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return await this.userService.update(id, updateUserDto);
